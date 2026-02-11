@@ -20,6 +20,7 @@ export class ObjectiveController {
   getAll() {
     return this.objectiveService.getAll();
   }
+
   @Post()
   create(@Body() objectiveDto: CreateObjectiveDto) {
     return this.objectiveService.create(objectiveDto);

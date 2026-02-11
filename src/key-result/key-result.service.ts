@@ -64,7 +64,7 @@ export class KeyResultService {
 
   async deleteOne(objectiveId: number, id: number) {
     await this.objectiveService.getOne(objectiveId);
-    await this.prismaService.keyResult.delete({
+    return this.prismaService.keyResult.delete({
       where: {
         id,
       },

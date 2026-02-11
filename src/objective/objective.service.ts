@@ -46,6 +46,7 @@ export class ObjectiveService {
           id,
         },
         data: { ...updateObjectiveDto },
+        include: {keyResults: true },
       });
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
@@ -54,6 +55,7 @@ export class ObjectiveService {
           throw new NotFoundException('Objective not found');
         }
       }
+      console.log(err);
     }
   }
 

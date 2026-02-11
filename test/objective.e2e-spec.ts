@@ -4,6 +4,7 @@ import { PrismaService } from '../src/prisma.service';
 import { INestApplication } from '@nestjs/common';
 import { App } from 'supertest/types';
 import request from 'supertest';
+import { afterEach } from 'node:test';
 
 describe('objective', () => {
   let app: INestApplication<App>;
@@ -14,6 +15,12 @@ describe('objective', () => {
 
     app = module.createNestApplication();
     await app.init();
+  });
+  afterEach(async () => {
+    const prisma = app.get(PrismaService);
+    await prisma.$executeRawUnsafe(`
+    TRUNCATE TABLE "KeyResult", "Objective" RESTART IDENTITY CASCADE;
+  `);
   });
   describe('GET /objective', () => {
     it('should return all objectives', async () => {
